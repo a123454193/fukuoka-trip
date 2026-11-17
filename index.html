@@ -98,6 +98,11 @@ ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10p
 .item.done .check{background:var(--mentai);border-color:var(--mentai)}
 .item.done .check svg{opacity:1;transform:scale(1)}
 button:focus-visible{outline:3px solid var(--mentai);outline-offset:2px}
+.shop{background:var(--indigo-soft);border-radius:18px;padding:10px 10px 10px;margin-bottom:10px}
+.shophead{display:flex;justify-content:space-between;align-items:center;font-family:"Zen Maru Gothic","Noto Sans TC",sans-serif;font-weight:700;font-size:15px;color:var(--indigo);padding:2px 6px 8px}
+.shophead span:first-child::before{content:"🏬 ";}
+.shopcount{font-family:Inter,sans-serif;font-size:13px;opacity:.8}
+.shop ul{gap:8px}
 .empty{color:var(--muted);text-align:center;padding:40px 0}
 
 footer{margin-top:36px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -387,11 +392,11 @@ const ITEMS = {
 const PLAN = [
   { id:"d1119", date:"11/19", dow:"四", theme:"抵達日・晚餐後逛藥妝", note:"Musashiza 吃完大約 23:00，天神・中洲一帶有營業到深夜的藥妝店和唐吉訶德，出發前用 Google Maps 確認營業時間。", stops:[
     { place:"中洲・天神一帶藥妝店（深夜營業）", area:"Musashiza 晚餐後，走路回春吉飯店的路上", items:[
-      {id:"wakamoto", where:"中洲深夜藥妝店／唐吉訶德"}, {id:"melano", where:"同一間一起買，湊退稅門檻"} ]},
+      {id:"wakamoto", where:"中洲深夜藥妝店／唐吉訶德"}, {id:"melano", where:"中洲深夜藥妝店／唐吉訶德・同一間一起買，湊退稅門檻"} ]},
   ]},
   { id:"d1120", date:"11/20", dow:"五", theme:"天神・大名潮流主攻線", stops:[
     { place:"天神：配眼鏡", area:"飯店走路約 10 分鐘；先配好再逛，確認最晚 11/24 能取件", items:[
-      {id:"glasses", where:"天神・今天配、11/24 晨跑回程取"} ]},
+      {id:"glasses", shop:"眼鏡行", where:"天神・今天配、11/24 晨跑回程取"} ]},
     { place:"天神 PARCO", area:"FREAK’S STORE／Onitsuka Tiger／BEAMS 福岡", items:[
       {id:"freaktop", where:"FREAK’S STORE"}, {id:"freakpants", where:"FREAK’S STORE"},
       {id:"hmrpeak", where:"Onitsuka Tiger"}, {id:"ot1183b500", where:"Onitsuka Tiger"},
@@ -399,7 +404,7 @@ const PLAN = [
     { place:"ONE FUKUOKA BLDG.", area:"天神中心、PARCO 旁邊・Salomon", items:[
       {id:"xt6", where:"Salomon（ONE FUKUOKA BLDG.）・沒有的話 11/24 atmos 再找"} ]},
     { place:"mont-bell 福岡天神店", area:"NTT-KF 大樓 1F・西鐵福岡站 Solaria 口走路約 1 分鐘，往大名的路上順路", items:[
-      {id:"montbell", where:"mont-bell 福岡天神店"} ]},
+      {id:"montbell", shop:"mont-bell"} ]},
     { place:"大名潮流街", area:"nanamica（紫標）／HUMAN MADE／THE NORTH FACE", items:[
       {id:"tnfpl", where:"nanamica"}, {id:"humanmade"}, {id:"tnfwaffle", where:"THE NORTH FACE（大名）・試穿紫色 ED"}, {id:"tnf"} ]},
     { place:"天神地下街／百貨・mina 天神", area:"Lacoste／UNIQLO 天神店（九州最大，和地下街直接相連）", items:[
@@ -407,12 +412,12 @@ const PLAN = [
   ]},
   { id:"d1124", date:"11/24", dow:"二", theme:"大濠晨跑・博多・店屋町選品線", stops:[
     { place:"大濠晨跑回程：天神取眼鏡", area:"大濠公園搭地鐵回來會經過天神，順路取件", items:[
-      {id:"glasses", where:"11/20 配的那間・取件"} ]},
+      {id:"glasses", shop:"眼鏡行（11/20 配的那間）", where:"x・取件"} ]},
     { place:"JR 博多城 AMU PLAZA・博多站", area:"BEAMS 博多／Nintendo／atmos，順便買伴手禮", items:[
       {id:"cloudmonster", where:"atmos"}, {id:"xt6", where:"atmos・11/20 天神沒買到才需要找"}, {id:"nintendo", where:"Nintendo FUKUOKA（AMU PLAZA 8F）"},
       {id:"nb991", where:"BEAMS 博多・11/20 沒買到才需要找"},
-      {id:"omiyage", where:"博多站一帶・博多通饅頭、明太子"} ]},
-    { place:"店屋町 NEPENTHES HAKATA", area:"試穿 Needles", items:[ {id:"needles"} ]},
+      {id:"omiyage", shop:"伴手禮店（博多站一帶）", where:"x・博多通饅頭、明太子"} ]},
+    { place:"店屋町 NEPENTHES HAKATA", area:"試穿 Needles", items:[ {id:"needles", shop:"NEPENTHES HAKATA"} ]},
     { place:"運河城 Canal City", area:"Alpen FUKUOKA／無印良品（北館 3F–4F，九州最大）／UNIQLO（東館）", items:[
       {id:"cloudrunner", where:"Alpen FUKUOKA・和 Cloudsurfer 一起試穿比較"}, {id:"cloudsurfer", where:"Alpen FUKUOKA"},
       {id:"mujisocks", where:"無印良品 北館 3F–4F"}, {id:"mujipink", where:"無印良品 北館 3F–4F"}, {id:"mujigray", where:"無印良品 北館 3F–4F"}, {id:"mujipouch", where:"無印良品 北館 3F–4F"},
@@ -420,7 +425,7 @@ const PLAN = [
     { place:"最後晚餐、回住宿打包", area:"Sukiyaki Yamasho 20:00", items:[] },
   ]},
   { id:"d1125", date:"11/25", dow:"三", theme:"福岡機場返台", stops:[
-    { place:"福岡機場國際線・免稅店", area:"用完剩下的日圓", items:[ {id:"omiyage", where:"機場免稅店補買"} ]},
+    { place:"福岡機場國際線・免稅店", area:"用完剩下的日圓", items:[ {id:"omiyage", shop:"機場免稅店", where:"x・補買"} ]},
   ]},
 ];
 
@@ -443,12 +448,18 @@ function showView(){
 readHash();
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+function shopOf(ref){
+  const it = ITEMS[ref.id];
+  const s = ref.shop || (ref.where ? ref.where.split("・")[0] : it.brand).replace(/（.*?）/g, "").trim();
+  return s || it.brand;
+}
 function itemHTML(ref){
   const it = ITEMS[ref.id], d = !!done[ref.id];
   const tile = it.img
     ? `<button class="tile photo" data-id="${ref.id}" aria-label="放大照片：${esc(it.name)}"><img src="${IMG[it.img]}" alt=""></button>`
     : `<div class="tile" aria-hidden="true">${it.icon}</div>`;
-  const where = ref.where ? `<div class="note">📍 ${esc(ref.where)}</div>` : "";
+  const rest = ref.where && ref.where.includes("・") ? ref.where.split("・").slice(1).join("・") : "";
+  const where = rest ? `<div class="note">📍 ${esc(rest)}</div>` : "";
   return `<li class="item${d?" done":""}${it.browse?" browse":""}">${tile}
     <div class="body">
       <div class="brand">${esc(it.brand)}${it.browse?`<span class="tag">逛逛</span>`:""}</div>
@@ -469,8 +480,19 @@ function render(){
     p.stops.forEach((s, i) => {
       const refs = s.items.filter(r => !onlyTodo || !done[r.id]);
       if (onlyTodo && s.items.length && !refs.length) return;
+      const groups = [];
+      for (const r of refs){
+        const key = shopOf(r);
+        let g = groups.find(x => x.key === key);
+        if (!g){ g = {key, refs:[]}; groups.push(g); }
+        g.refs.push(r);
+      }
       const inner = s.items.length
-        ? `<ul>${refs.map(itemHTML).join("")}</ul>`
+        ? groups.map(g => {
+            const all = s.items.filter(r => shopOf(r) === g.key);
+            const got = all.filter(r => done[r.id]).length;
+            return `<div class="shop"><div class="shophead"><span>${esc(g.key)}</span><span class="shopcount">${got}/${all.length}</span></div><ul>${g.refs.map(itemHTML).join("")}</ul></div>`;
+          }).join("")
         : `<div class="nobuy">這站沒有要買的，收工 🙌</div>`;
       stopsHTML += `<div class="stop"><div class="num">${p.unsched?"•":i+1}</div>
         <div class="place">${esc(s.place)}</div>${s.area?`<div class="area">${esc(s.area)}</div>`:`<div class="area"></div>`}${inner}</div>`;
